@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Persistentvolume
+metadata:
+  name: pv-1
+spec:
+  capacity:
+    storage: 10Gi  #capacidade que o volume vai usar do disco
+  accessModes:
+    - ReadWriteOnce  #permissões de leitura e escrita
+  gcePersistentDisk:
+    pdName: pv-disk  #disco no google
+  storageClassName: standard

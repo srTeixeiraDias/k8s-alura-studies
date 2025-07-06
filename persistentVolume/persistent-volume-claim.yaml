@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentvolumeClaim
+metadata:
+  name: pvc-1
+spec: #pv e pvc se ligam pela especificação
+  accessModes:
+    - ReadWriteOnce #precisam ter o mesmo modo de acesso
+  resources:
+    requests:
+      storage: 10Gi #precisam ter a mesma capacidad
+  storageClassName: standard #mesmo storage class
