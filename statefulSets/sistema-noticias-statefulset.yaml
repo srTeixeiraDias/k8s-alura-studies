@@ -23,6 +23,20 @@ spec:
               mountPath: /var/www/html/uploads    #a propria aplicação procura por esse diretorio para armazenar
             - name: sessao
               mountPath: /tmp         #a propria aplicação procura por esse diretorio para armazenar
+          livenessProbe:
+            httpGet: 
+              path: / #não possuimos outros caminhos, vamos testar a url unica existente
+              port: 80 #porta que o container está executando a aplicação
+            periodSeconds: 10 #de quanto em quanto tempo verificar
+            failureThreshold: 3 #numero de falhas para reiniciar o container
+            initialDelaySeconds: 20 #delay para iniciar os testes quando subir o container
+          readinessProbe:
+            httpGet: 
+              path: /inserir_noticias.php
+              port: 80 
+            periodSeconds: 10 
+            failureThreshold: 5 #tentativas antes de ignorar o redinessprobe
+            initialDelaySeconds: 3 
       volumes:
         - name: imagens
           persistentVolumeClaim: 
