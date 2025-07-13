@@ -1,0 +1,18 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: portal-noticias-hpa
+spec: 
+  scaleTargetRef:   #Referencia do pod que queremos escalar
+    apiVersion: apps/v1  #versão da api do pod
+    kind: Deployment #o tipo de quem queremos escalar
+    name: portal-noticias-deployment
+  minReplicas: 1  #minimo de pods
+  maxReplicas: 10 #maximo de pods
+  metrics:
+    - type: Resource #quero basear as metricas em recursos de sistema (processamento, memoria etc...)
+      resource: 
+        name: cpu  #nome do recurso que estou utilizando como metrica
+        target:     #o que eu almejo com esse recurso:
+          type:  Utilization  #baseado na utilizacao dele
+          averageUtilization: 50 #mantenha sempre um uso medio de 50%
